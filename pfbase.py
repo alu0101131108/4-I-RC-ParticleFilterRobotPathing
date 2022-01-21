@@ -72,6 +72,7 @@ def genera_filtro(num_particulas, balizas, real, centro=[2,2], radio=3):
     y = (centro[1] - radio) + (random.random() * radio * 2)
     orientacion = random.random() * 2 * pi
     particula.set(x, y, orientacion)
+   particula.set_noise(0.02, 0.02, 0.02)
     fp.append(particula)
   
   return fp
@@ -189,9 +190,7 @@ for punto in objetivos:
     print("Peso medio: ", pesomedio)
     
     # remuestreo.
-
-    if (disp > 0.1):
-      filtro = resample(filtro, int(len(filtro) * 0.90))
+    filtro = resample(filtro, max(30, int(N_PARTIC / pesomedio)))
 
     espacio += v
     tiempo  += 1
